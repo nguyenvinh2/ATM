@@ -30,9 +30,13 @@ namespace Lab02UnitTesting
           Console.WriteLine("Press any key to go back to Main Menu");
           Console.ReadKey();
         }
-        if (input == (char)51)
+        if (input == (char) 50)
         {
-          AddBalance();
+          ChangeBalance("withdraw");
+        }
+        if (input == (char) 51)
+        {
+          ChangeBalance("deposit");
         }
         if (input == (char)52)
         {
@@ -62,29 +66,64 @@ namespace Lab02UnitTesting
 
     }
 
-    public static void AddBalance()
+    public static void ChangeBalance(string option)
     {
       Console.WriteLine();
-      Console.WriteLine("How much money would you like to add?");
+      if (option == "deposit")
+      {
+        Console.WriteLine("How much money would you like to add?");
+      }
+      if (option == "withdraw")
+      {
+        Console.WriteLine("How much money would you like to withdraw?");
+      }
       string amount = Console.ReadLine();
-
       try
       {
-        UInt64 addValue = Convert.ToUInt64(amount);
-        UInt64 totalValue = SumBalance(addValue);
-        Console.WriteLine($"You new balance is {totalValue}. Press any key to back to Main Menu");
+        UInt64 value = Convert.ToUInt64(amount);
+        if (option == "deposit")
+        {
+          SumBalance(value);
+        }
+        if (option == "withdraw")
+        {
+          SubtractBalance(value);
+        }
+
+        Console.WriteLine($"You new balance is {myBalance.ToString("C")}. Press any key to back to Main Menu");
         Console.ReadKey();
       }
-      catch (Exception)
+
+      catch (Exception e)
       {
-        Console.WriteLine($"Please enter a positive number in whole amounts.");
-        Console.WriteLine("Returning to Main Menu");
+        if (e is FormatException || e is OverflowException)
+        {
+          Console.WriteLine($"Please enter a positive number in whole amounts.");
+          Console.WriteLine("Press any key to return to Main Menu");
+          Console.ReadKey();
+        }
+        else
+        {
+          Console.WriteLine(e.Message);
+          Console.WriteLine("Press any key to return to Main Menu");
+          Console.ReadKey();
+        }
       }
     }
 
     public static UInt64 SumBalance(UInt64 addValue)
     {
       myBalance += addValue;
+      return myBalance;
+    }
+
+    public static UInt64 SubtractBalance(UInt64 minusValue)
+    {
+      if (minusValue > myBalance)
+      {
+        throw new Exception($"You cannot withdraw more than your balance of {myBalance.ToString("C")}");
+      }
+      myBalance -= minusValue;
       return myBalance;
     }
 
