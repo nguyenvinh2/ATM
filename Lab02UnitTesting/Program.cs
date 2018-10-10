@@ -4,7 +4,10 @@ namespace Lab02UnitTesting
 {
   public class Program
   {
+    //Global variable for account balance
     public static UInt64 myBalance = 1000;
+
+    //Nothing in main except to call on menu
     public static void Main(string[] args)
     {
       Console.WriteLine("Hello World!");
@@ -12,6 +15,10 @@ namespace Lab02UnitTesting
       introScreen();
     }
 
+    //outputs for menu selection
+    //does a custom exception check, user can only input 4 key characters (1, 2, 3, 4)
+    //loops until user makes a correct choice
+    //calls up external methods or runs in method based on selection 
     public static void introScreen()
     {
       Console.WriteLine("Enter your selection number:");
@@ -57,6 +64,7 @@ namespace Lab02UnitTesting
       }
     }
 
+    //custom exception check for introScreen() options
     public static void CheckSelectionInput(char input)
     {
       if (input != (char)49 && input != (char)50 && input != (char)51 && input != (char)52)
@@ -65,7 +73,9 @@ namespace Lab02UnitTesting
       }
 
     }
-
+    
+    //Hosts both add and withdraw menu options, calls up on calculation methods 
+    //based on user selection
     public static void ChangeBalance(string option)
     {
       Console.WriteLine();
@@ -111,12 +121,14 @@ namespace Lab02UnitTesting
       }
     }
 
+    //does calculations for add balance
     public static UInt64 SumBalance(UInt64 addValue)
     {
       myBalance += addValue;
       return myBalance;
     }
-
+    //does calculations for withdraw balance
+    //custom exception if user tries to withdraw money than available balance
     public static UInt64 SubtractBalance(UInt64 minusValue)
     {
       if (minusValue > myBalance)

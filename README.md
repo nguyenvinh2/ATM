@@ -18,9 +18,14 @@ Visual Studios 2017 or equivalent C# IDE
 ## Instructions
 
 Clone this repo to local storage and open it up using Visual Studios 2017.
+
 Open the Lab02UnitTesting.sln solution located in the Lab02-Unit-Testing folder.
-Compile the Program.cs and run the application. A console command should 
-appear to prompt you for inputs. Select options as they appear.
+
+Compile the Program.cs and run the application.
+
+A console command should appear to prompt you for inputs. 
+
+Select options as they appear.
 
 ## Result
 
